@@ -1,0 +1,116 @@
+
+Gurobi 12.0.2 (win64) logging started Sun Jan 25 07:21:15 2026
+
+Set parameter LogFile to value "lipa80b.dat_1000_log_bestSolStop.txt"
+Set parameter Threads to value 20
+Set parameter SoftMemLimit to value 40
+Set parameter NodefileStart to value 40
+Set parameter BestObjStop to value 7763962.001
+Gurobi Optimizer version 12.0.2 build v12.0.2rc0 (win64 - Windows 11+.0 (26200.2))
+
+CPU model: AMD Ryzen 9 7900X 12-Core Processor, instruction set [SSE2|AVX|AVX2|AVX512]
+Thread count: 12 physical cores, 24 logical processors, using up to 20 threads
+
+Non-default parameters:
+TimeLimit  1000
+SoftMemLimit  40
+BestObjStop  7763962.001
+NodefileStart  40
+Threads  20
+
+Optimize a model with 160 rows, 6400 columns and 12800 nonzeros
+Model fingerprint: 0xb644e955
+Model has 19724720 quadratic objective terms
+Variable types: 0 continuous, 6400 integer (6400 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [0e+00, 0e+00]
+  QObjective range [4e+00, 3e+04]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Found heuristic solution: objective 1.012481e+07
+Presolve removed 0 rows and 0 columns (presolve time = 113s)...
+Presolve time: 113.31s
+Presolved: 160 rows, 6400 columns, 12800 nonzeros
+Presolved model has 19731120 quadratic objective terms
+Variable types: 0 continuous, 6400 integer (6400 binary)
+
+Root simplex log...
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   0.000000e+00   4.197212e+06    115s
+     465   -6.8991466e+07   0.000000e+00   2.029517e+06    115s
+    1319   -9.0107764e+07   0.000000e+00   4.668466e+05    121s
+    1759   -9.2153985e+07   0.000000e+00   3.071194e+05    126s
+    2070   -9.3019979e+07   0.000000e+00   2.394907e+05    131s
+    2368   -9.3617866e+07   0.000000e+00   1.928019e+05    138s
+    2560   -9.3924245e+07   0.000000e+00   1.688705e+05    143s
+    2747   -9.4176838e+07   0.000000e+00   1.491447e+05    149s
+    2930   -9.4391524e+07   0.000000e+00   1.323826e+05    156s
+    3109   -9.4575091e+07   0.000000e+00   1.180539e+05    163s
+    3284   -9.4733433e+07   0.000000e+00   1.056895e+05    171s
+    3455   -9.4871438e+07   0.000000e+00   9.490398e+04    179s
+    3622   -9.4992974e+07   0.000000e+00   8.539676e+04    187s
+    3786   -9.5101225e+07   0.000000e+00   7.694714e+04    196s
+    3947   -9.5198012e+07   0.000000e+00   6.938222e+04    206s
+    4105   -9.5285105e+07   0.000000e+00   6.257120e+04    216s
+    4260   -9.5363953e+07   0.000000e+00   5.640240e+04    227s
+    4413   -9.5436096e+07   0.000000e+00   5.076303e+04    239s
+    4564   -9.5502204e+07   0.000000e+00   4.559397e+04    251s
+    4712   -9.5562703e+07   0.000000e+00   4.086146e+04    263s
+    4858   -9.5618595e+07   0.000000e+00   3.648017e+04    277s
+    5002   -9.5670354e+07   0.000000e+00   3.242407e+04    292s
+    5144   -9.5718423e+07   0.000000e+00   2.865080e+04    307s
+    5284   -9.5763170e+07   0.000000e+00   2.512847e+04    322s
+    5422   -9.5804977e+07   0.000000e+00   2.184068e+04    339s
+    5558   -9.5844069e+07   0.000000e+00   1.876015e+04    355s
+    5692   -9.5880679e+07   0.000000e+00   1.587377e+04    372s
+    5825   -9.5915309e+07   0.000000e+00   1.313891e+04    392s
+    5956   -9.5947847e+07   0.000000e+00   1.056659e+04    412s
+    6086   -9.5978687e+07   0.000000e+00   8.120177e+03    433s
+    6214   -9.6007831e+07   0.000000e+00   5.810957e+03    455s
+    6340   -9.6035366e+07   0.000000e+00   3.625362e+03    478s
+    6465   -9.6061679e+07   0.000000e+00   1.534607e+03    501s
+    6560   -9.6080651e+07   0.000000e+00   0.000000e+00    523s
+
+Root relaxation: objective -9.608065e+07, 6560 iterations, 408.86 seconds (540.47 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+H    0     0                    1.012102e+07    0.00000   100%     -  523s
+H    0     0                    9998734.0000    0.00000   100%     -  523s
+H    0     0                    9995732.0000    0.00000   100%     -  523s
+H    0     0                    9990488.0000    0.00000   100%     -  523s
+H    0     0                    9987972.0000    0.00000   100%     -  523s
+H    0     0                    9983261.0000    0.00000   100%     -  523s
+H    0     0                    9982522.0000    0.00000   100%     -  523s
+H    0     0                    9978627.0000    0.00000   100%     -  523s
+H    0     0                    9971874.0000    0.00000   100%     -  523s
+H    0     0                    9967559.0000    0.00000   100%     -  523s
+H    0     0                    9967172.0000    0.00000   100%     -  523s
+H    0     0                    9961986.0000    0.00000   100%     -  523s
+H    0     0                    9949150.0000    0.00000   100%     -  524s
+H    0     0                    9897889.0000    0.00000   100%     -  524s
+H    0     0                    9853960.0000    0.00000   100%     -  524s
+H    0     0                    9844736.0000    0.00000   100%     -  524s
+H    0     0                    9833677.0000    0.00000   100%     -  524s
+H    0     0                    9827901.0000    0.00000   100%     -  524s
+H    0     0                    9817805.0000    0.00000   100%     -  524s
+H    0     0                    9817525.0000    0.00000   100%     -  524s
+H    0     0                    9809440.0000    0.00000   100%     -  524s
+H    0     0                    9806169.0000    0.00000   100%     -  524s
+H    0     0                    9802651.0000    0.00000   100%     -  524s
+H    0     0                    9799548.0000    0.00000   100%     -  524s
+H    0     0                    9782498.0000    0.00000   100%     -  524s
+H    0     0                    9766674.0000    0.00000   100%     -  524s
+     0     0    0.00000    0 6400 9766674.00    0.00000   100%     -  525s
+H    0     0                    7763962.0000    0.00000   100%     -  528s
+
+Explored 1 nodes (6560 simplex iterations) in 529.45 seconds (746.44 work units)
+Thread count was 20 (of 24 available processors)
+
+Solution count 10: 7.76396e+06 9.76667e+06 9.7825e+06 ... 9.8279e+06
+
+Optimization achieved user objective limit
+Best objective 7.763962000000e+06, best bound 2.980232238770e-08, gap 100.0000%

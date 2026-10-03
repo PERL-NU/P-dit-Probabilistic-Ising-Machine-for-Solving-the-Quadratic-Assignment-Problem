@@ -1,0 +1,255 @@
+diff --git a/src/bin/qap_cpu.cpp b/src/bin/qap_cpu.cpp
+index d12ee1c..565c29d 100644
+--- a/src/bin/qap_cpu.cpp
++++ b/src/bin/qap_cpu.cpp
+@@ -33,9 +33,9 @@ double beta0 = exp2(-12); // largest used beta
+ double deltaBeta = 1.2; // divisive
+ 
+ double lowerBetaProportion = 0.1;
+-double higherBetaProportion = 0.9; 
++double higherBetaProportion = 0.9;
+ 
+-bool automaticMode = true; // if true then a series of short trials at different betas are used to try and choose the best beta0 and deltaBeta 
++bool automaticMode = true; // if true then a series of short trials at different betas are used to try and choose the best beta0 and deltaBeta
+ 
+ std::thread threads[MAXNUMTHREADS];
+ std::string inputFileName = "";
+@@ -380,7 +380,16 @@ static void autoSelectParameters() {
+ 		}
+ 
+ 		// we have flattened out completely or have started to rise again (due to rounding issues), so we can stop
+-        if ((i==numSteps-1) || (hasStartedDecrease && i>3 && bestEnergySums[i] >= bestEnergySums[i - 1] && bestEnergySums[i] >= bestEnergySums[i - 2] && bestEnergySums[i] >= bestEnergySums[i - 3])) {
++        if (
++            (i==numSteps-1)
++            || (
++                hasStartedDecrease
++                && i>3
++                && bestEnergySums[i] >= bestEnergySums[i - 1]
++                && bestEnergySums[i] >= bestEnergySums[i - 2]
++                && bestEnergySums[i] >= bestEnergySums[i - 3]
++            )
++        ) {
+             double minE = 1e30;
+ 			double maxE = -1e30;
+             for(int j = 0; j < i; j++) {
+diff --git a/src/bin/qap_gpu.cu b/src/bin/qap_gpu.cu
+index 4c20811..247eac5 100644
+--- a/src/bin/qap_gpu.cu
++++ b/src/bin/qap_gpu.cu
+@@ -39,7 +39,7 @@ using Moment = std::chrono::time_point<Clock>;
+ static const bool kUseAutomaticMode = true;
+ 
+ /** Toggle between best-found and three-step plateau checking methods */
+-static const bool kUseFullPlateauCheck = true;
++static const bool kUseFullPlateauCheck = false;
+ 
+ /** Number of mega-iterations until switching to the fine-grained algorithm */
+ static const int32_t kGibbsPatience = INT32_MAX;
+@@ -47,6 +47,15 @@ static const int32_t kGibbsPatience = INT32_MAX;
+ /** Number of mega-iterations before recomputing energy delta */
+ static const int32_t kDriftPatience = INT32_MAX;
+ 
++/** Toggle checkpointing vs full trial randomization */
++static const bool kRandomTrialInit = true;
++
++/** Set number of beta indices to add to max beta index found by sweep */
++static const int64_t kSweepCautionRight = 2;
++
++/** Set number of beta indices to subtract from min beta index found by sweep */
++static const int64_t kSweepCautionLeft = 0;
++
+ //======================================================================================
+ // Default Commandline Arguments
+ //======================================================================================
+@@ -70,7 +79,7 @@ static const FloatingPoint kDefaultBetaMax = exp2(-12);
+ static const FloatingPoint kDefaultBetaDivisor = 1.2;
+ 
+ /** Default lower proportion in the beta sweep when none is provided via `--al` */
+-static const FloatingPoint kDefaultBetaPropLo = 0.1;
++static const FloatingPoint kDefaultBetaPropLo = 0.001;
+ 
+ /** Default lower proportion in the beta sweep when none is provided via `--ah` */
+ static const FloatingPoint kDefaultBetaPropHi = 0.9;
+@@ -210,13 +219,14 @@ static int32_t run_annealing_loop(
+     const uint32_t num_mega_iter,
+     const bool automatic_mode,
+     const Moment start_time,
+-    std::ofstream &sweep_file
++    std::ofstream &sweep_file,
++    const int32_t best_score_sweep
+ ) {
+     bool use_coarse = true;
+     uint32_t num_unimproved_runs = 0;
+ 
+-    int32_t best_score[1] = {INT32_MAX};
+-    int32_t last_best_score = INT32_MAX;
++    int32_t best_score[1] = {best_score_sweep};
++    int32_t last_best_score = best_score_sweep;
+ 
+     std::random_device dev;
+     auto host_rng = std::mt19937(dev());
+@@ -485,6 +495,7 @@ int32_t run(AppArgs &args) {
+     Moment check_time;
+ 
+     // Beta Sweep
++    int32_t best_score_sweep = INT32_MAX;
+     FloatingPoint min_beta = 0;
+     FloatingPoint max_beta = 0;
+     if (args.do_beta_sweep && kUseAutomaticMode) {  // TODO Might be able to optimize a bit (memory xfer)  // TODO Make its own function
+@@ -497,10 +508,9 @@ int32_t run(AppArgs &args) {
+         //    kDefaultBetaMax / kMinBetaToTry, 1.0 / (float)(annealer_d.pool_width - 1)
+         //);
+         annealer_d.regenerate_beta(max_beta, autostep);
+-        run_annealing_loop<Z>(annealer_d, args, 1, true, start_time, sweep_file);
++        run_annealing_loop<Z>(annealer_d, args, 1, true, start_time, sweep_file, INT32_MAX);
+         annealer_d.cu_sync(annealer_h, cudaMemcpyDeviceToHost);
+ 
+-
+         // 1) Sweep through candidate betas and record scores for each
+         int32_t sweep_min = INT32_MAX;
+         FloatingPoint energy_sums[1024] = {0};
+@@ -516,20 +526,37 @@ int32_t run(AppArgs &args) {
+             reset_best_scores<Z>(annealer_d);
+             for (int trial = 0; trial < kNumBetaTrials; ++trial) {
+                 // Re-setup
+-                annealer_h.cu_sync(annealer_d, cudaMemcpyHostToDevice);  // "checkpoint"
++                if (kRandomTrialInit) {
++                    annealer_h.shuffle_positions();
++                    annealer_h.cu_sync(annealer_d, cudaMemcpyHostToDevice);
++                    annealer_d.recompute_force_mats(32);
++                    annealer_d.template recompute_energies<32>();
++                } else {
++                    annealer_h.cu_sync(annealer_d, cudaMemcpyHostToDevice);  // "checkpoint"
++                }
+ 
+                 // Need to add these to ensure independent seeding
+                 double z = std::generate_canonical<double, std::numeric_limits<double>::digits>(
+                     host_rng
+                 );
+                 uint64_t trial_seed = z * UINT64_MAX;
+-                cudaMemcpy(annealer_d.graph_seeds, &trial_seed, sizeof(uint64_t), cudaMemcpyHostToDevice);
+-                cudaMemcpy(annealer_d.graph_step, &zero, sizeof(uint64_t), cudaMemcpyHostToDevice);
++                cudaMemcpy(
++                    annealer_d.graph_seeds,
++                    &trial_seed,
++                    sizeof(uint64_t),
++                    cudaMemcpyHostToDevice
++                );
++                cudaMemcpy(
++                    annealer_d.graph_step,
++                    &zero,
++                    sizeof(uint64_t),
++                    cudaMemcpyHostToDevice
++                );
+ 
+                 annealer_d.regenerate_beta(candidate_beta, 1);  // all same beta
+ 
+                 // Run trial
+-                run_annealing_loop<Z>(annealer_d, args, 10, true, start_time, sweep_file);
++                run_annealing_loop<Z>(annealer_d, args, 10, true, start_time, sweep_file, INT32_MAX);
+ 
+                 // Track score
+                 annealer_d.thunk_scores(
+@@ -544,6 +571,9 @@ int32_t run(AppArgs &args) {
+                 if (*best_score < last_best_score) {
+                     last_best_score = *best_score;
+                 }
++                if (*best_score < best_score_sweep) {
++                    best_score_sweep = *best_score;
++                }
+             }
+             energy_sums[i] /= annealer_h.num_replica * kNumBetaTrials;
+             logger::write(std::format(
+@@ -582,24 +612,69 @@ int32_t run(AppArgs &args) {
+             //    }
+             //}
+         } else {
+-            for (int i = 1; i < kNumBetaStep; ++i) {
+-                if (energy_sums[i] < energy_sums[i - 1]) {
+-                    min_max_indices[0] = i;
+-                    min_max_indices[1] = i;
+-                    break;
++            bool has_started_dec = false;
++            int32_t best_e = energy_sums[0];
++            for (int step = 1; step < kNumBetaStep; ++step) {
++                int32_t step_e = energy_sums[step];
++                if (step_e < best_e) {
++                    best_e = step_e;
++                    min_max_indices[1] = step;
+                 }
+-            }
+-
+-            // Using global min instead of step-by-step sigmoid check
+-            min_max_indices[1] = min_max_indices[0];
+-            for (int i = min_max_indices[0] + 1; i < kNumBetaStep; ++i) {
+-                if (energy_sums[i] < energy_sums[min_max_indices[1]]) {
+-                    min_max_indices[1] = i;
++                if (best_e < 0.9 * energy_sums[step - 1]) {
++                    has_started_dec = true;
++                }
++                if (step == kNumBetaStep - 1) {
++                    int32_t max_e = INT32_MIN;
++                    int32_t min_e = INT32_MAX;
++                    uint32_t min_e_idx = 0;
++                    for (int j = 0; j < step; ++j) {
++                        if (energy_sums[j] < min_e) {
++                            min_e = energy_sums[j];
++                            min_e_idx = j;
++                        }
++                        if (j == 0) {
++                            max_e = energy_sums[j];
++                        }
++                    }
++                    for (int j =0; j < step; ++j) {
++                        if (
++                            kMinBetaToTry == 0
++                            && ((j == min_e_idx - 1) && (j >= 1))
++                            || (energy_sums[j] < max_e - min_e) * kDefaultBetaPropHi + min_e
++                        ) {
++                            min_max_indices[0] = j;
++                        }
++                        FloatingPoint tmp_min_beta = exp2(kMinBetaToTry + min_max_indices[0] * kBetaStep);
++                        if (
++                            j == step - 1
++                            || (
++                                tmp_min_beta != 0
++                                && (
++                                    j == min_e_idx
++                                    || (energy_sums[j] < (max_e - min_e) * kDefaultBetaPropLo + min_e)
++                                )
++                           )
++                        ) {
++                            if (tmp_min_beta == 0) {
++                                min_max_indices[0] = 0;
++                            }
++                            min_max_indices[1] = j + kSweepCautionRight;
++                        }
++                    }
+                 }
+             }
+-            //min_max_indices[1] = std::min(min_max_indices[1] + 2, kNumBetaStep - 1);
+         }
+ 
++        // Apply left/right cautions
++        int64_t cautious_min = max(
++            (int64_t)min_max_indices[0] - kSweepCautionLeft,
++            (int64_t)0
++        );
++        int64_t cautious_max = min(
++            (int64_t)min_max_indices[1] + kSweepCautionRight, (int64_t)(kNumBetaStep - 1)
++        );
++        min_max_indices[0] = (uint32_t)min_max_indices[0];
++        min_max_indices[1] = (uint32_t)min_max_indices[1];
+ 
+         min_beta = exp2(kMinBetaToTry + min_max_indices[0] * kBetaStep);
+         max_beta = exp2(kMinBetaToTry + min_max_indices[1] * kBetaStep);
+@@ -659,7 +734,8 @@ int32_t run(AppArgs &args) {
+         args.mega_iter_lim,
+         false,
+         start_time,
+-        sweep_file
++        sweep_file,
++        best_score_sweep
+     );
+ 
+     // Total runtime

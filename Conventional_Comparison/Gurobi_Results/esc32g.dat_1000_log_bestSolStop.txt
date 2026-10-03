@@ -1,0 +1,58 @@
+
+Gurobi 12.0.2 (win64) logging started Sun Jan 25 04:05:26 2026
+
+Set parameter LogFile to value "esc32g.dat_1000_log_bestSolStop.txt"
+Set parameter Threads to value 20
+Set parameter SoftMemLimit to value 40
+Set parameter NodefileStart to value 40
+Set parameter BestObjStop to value 6.001
+Gurobi Optimizer version 12.0.2 build v12.0.2rc0 (win64 - Windows 11+.0 (26200.2))
+
+CPU model: AMD Ryzen 9 7900X 12-Core Processor, instruction set [SSE2|AVX|AVX2|AVX512]
+Thread count: 12 physical cores, 24 logical processors, using up to 20 threads
+
+Non-default parameters:
+TimeLimit  1000
+SoftMemLimit  40
+BestObjStop  6.001
+NodefileStart  40
+Threads  20
+
+Optimize a model with 64 rows, 1024 columns and 2048 nonzeros
+Model fingerprint: 0x2bf7d865
+Model has 7488 quadratic objective terms
+Variable types: 0 continuous, 1024 integer (1024 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [0e+00, 0e+00]
+  QObjective range [4e+00, 5e+01]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Found heuristic solution: objective 44.0000000
+Presolve time: 0.06s
+Presolved: 224 rows, 1184 columns, 9856 nonzeros
+Variable types: 0 continuous, 1184 integer (1024 binary)
+
+Root relaxation: objective 0.000000e+00, 115 iterations, 0.00 seconds (0.00 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0    0.00000    0    7   44.00000    0.00000   100%     -    0s
+H    0     0                      12.0000000    0.00000   100%     -    0s
+H    0     0                       8.0000000    0.00000   100%     -    0s
+     0     0    0.00000    0   17    8.00000    0.00000   100%     -    0s
+H    0     0                       6.0000000    0.00000   100%     -    0s
+
+Cutting planes:
+  Gomory: 1
+  MIR: 5
+  RLT: 1
+
+Explored 1 nodes (395 simplex iterations) in 0.14 seconds (0.14 work units)
+Thread count was 20 (of 24 available processors)
+
+Solution count 4: 6 8 12 44 
+
+Optimization achieved user objective limit
+Best objective 6.000000000000e+00, best bound 0.000000000000e+00, gap 100.0000%

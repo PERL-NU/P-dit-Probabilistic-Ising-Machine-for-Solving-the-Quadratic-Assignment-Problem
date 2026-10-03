@@ -1,0 +1,44 @@
+
+Gurobi 12.0.2 (win64) logging started Mon Jan 26 04:09:16 2026
+
+Set parameter LogFile to value "tho150.dat_1000_log_bestSolStop.txt"
+Set parameter Threads to value 20
+Set parameter SoftMemLimit to value 40
+Set parameter NodefileStart to value 40
+Set parameter BestObjStop to value 8133398.001
+Gurobi Optimizer version 12.0.2 build v12.0.2rc0 (win64 - Windows 11+.0 (26200.2))
+
+CPU model: AMD Ryzen 9 7900X 12-Core Processor, instruction set [SSE2|AVX|AVX2|AVX512]
+Thread count: 12 physical cores, 24 logical processors, using up to 20 threads
+
+Non-default parameters:
+TimeLimit  1000
+SoftMemLimit  40
+BestObjStop  8133398.001
+NodefileStart  40
+Threads  20
+
+Optimize a model with 300 rows, 22500 columns and 45000 nonzeros
+Model fingerprint: 0xf85cb2db
+Model has 105760200 quadratic objective terms
+Variable types: 0 continuous, 22500 integer (22500 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [0e+00, 0e+00]
+  QObjective range [4e+00, 2e+04]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Found heuristic solution: objective 9785062.0000
+Presolve removed 0 rows and 0 columns (presolve time = 729s)...
+Presolve time: 728.80s
+Presolved: 300 rows, 22500 columns, 45000 nonzeros
+Presolved model has 105760200 quadratic objective terms
+Variable types: 0 continuous, 22500 integer (22500 binary)
+
+Explored 0 nodes (0 simplex iterations) in 733.35 seconds (1062.35 work units)
+Thread count was 20 (of 24 available processors)
+
+Solution count 1: 9.78506e+06 
+
+Memory limit reached
+Best objective 9.785062000000e+06, best bound 0.000000000000e+00, gap 100.0000%

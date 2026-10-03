@@ -1,0 +1,84 @@
+
+Gurobi 12.0.2 (win64) logging started Sun Jan 25 06:54:58 2026
+
+Set parameter LogFile to value "lipa60b.dat_1000_log_bestSolStop.txt"
+Set parameter Threads to value 20
+Set parameter SoftMemLimit to value 40
+Set parameter NodefileStart to value 40
+Set parameter BestObjStop to value 2520135.001
+Gurobi Optimizer version 12.0.2 build v12.0.2rc0 (win64 - Windows 11+.0 (26200.2))
+
+CPU model: AMD Ryzen 9 7900X 12-Core Processor, instruction set [SSE2|AVX|AVX2|AVX512]
+Thread count: 12 physical cores, 24 logical processors, using up to 20 threads
+
+Non-default parameters:
+TimeLimit  1000
+SoftMemLimit  40
+BestObjStop  2520135.001
+NodefileStart  40
+Threads  20
+
+Optimize a model with 120 rows, 3600 columns and 7200 nonzeros
+Model fingerprint: 0x81bb632e
+Model has 6184380 quadratic objective terms
+Variable types: 0 continuous, 3600 integer (3600 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [0e+00, 0e+00]
+  QObjective range [2e+00, 1e+04]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Found heuristic solution: objective 3316830.0000
+Presolve removed 0 rows and 0 columns (presolve time = 31s)...
+Presolve time: 30.98s
+Presolved: 120 rows, 3600 columns, 7200 nonzeros
+Presolved model has 6187980 quadratic objective terms
+Variable types: 0 continuous, 3600 integer (3600 binary)
+
+Root simplex log...
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   0.000000e+00   1.808374e+06     31s
+    1383   -2.6210259e+07   0.000000e+00   1.080154e+05     36s
+    1943   -2.6649915e+07   0.000000e+00   5.650348e+04     42s
+    2201   -2.6771662e+07   0.000000e+00   4.222492e+04     46s
+    2445   -2.6861247e+07   0.000000e+00   3.171926e+04     51s
+    2678   -2.6930677e+07   0.000000e+00   2.358226e+04     57s
+    2791   -2.6959900e+07   0.000000e+00   2.015605e+04     61s
+    3011   -2.7010254e+07   0.000000e+00   1.424616e+04     68s
+    3118   -2.7032084e+07   0.000000e+00   1.167803e+04     72s
+    3223   -2.7052047e+07   0.000000e+00   9.327715e+03     75s
+    3427   -2.7087223e+07   0.000000e+00   5.177916e+03     84s
+    3576   -2.7110400e+07   0.000000e+00   2.437177e+03     90s
+    3720   -2.7130795e+07   0.000000e+00   0.000000e+00     97s
+
+Root relaxation: objective -2.713080e+07, 3720 iterations, 66.02 seconds (100.66 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+H    0     0                    3280192.0000    0.00000   100%     -   97s
+H    0     0                    3258416.0000    0.00000   100%     -   97s
+H    0     0                    3223587.0000    0.00000   100%     -   97s
+H    0     0                    3221939.0000    0.00000   100%     -   97s
+H    0     0                    3218469.0000    0.00000   100%     -   97s
+H    0     0                    3216606.0000    0.00000   100%     -   97s
+H    0     0                    3212007.0000    0.00000   100%     -   97s
+H    0     0                    3203898.0000    0.00000   100%     -   97s
+H    0     0                    3203293.0000    0.00000   100%     -   97s
+H    0     0                    3199261.0000    0.00000   100%     -   97s
+H    0     0                    3191630.0000    0.00000   100%     -   97s
+H    0     0                    3189709.0000    0.00000   100%     -   97s
+H    0     0                    3187971.0000    0.00000   100%     -   97s
+H    0     0                    3184183.0000    0.00000   100%     -   97s
+H    0     0                    3184077.0000    0.00000   100%     -   97s
+     0     0   -0.00000    0 3600 3184077.00    0.00000   100%     -   97s
+H    0     0                    2520135.0000    0.00000   100%     -   98s
+
+Explored 1 nodes (3720 simplex iterations) in 99.14 seconds (164.95 work units)
+Thread count was 20 (of 24 available processors)
+
+Solution count 10: 2.52013e+06 3.18408e+06 3.18418e+06 ... 3.21201e+06
+
+Optimization achieved user objective limit
+Best objective 2.520135000000e+06, best bound 0.000000000000e+00, gap 100.0000%

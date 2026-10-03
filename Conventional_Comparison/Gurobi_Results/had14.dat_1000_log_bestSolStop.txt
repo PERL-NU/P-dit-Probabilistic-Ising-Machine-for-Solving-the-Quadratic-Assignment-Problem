@@ -1,0 +1,80 @@
+
+Gurobi 12.0.2 (win64) logging started Sun Jan 25 04:05:32 2026
+
+Set parameter LogFile to value "had14.dat_1000_log_bestSolStop.txt"
+Set parameter Threads to value 20
+Set parameter SoftMemLimit to value 40
+Set parameter NodefileStart to value 40
+Set parameter BestObjStop to value 2724.001
+Gurobi Optimizer version 12.0.2 build v12.0.2rc0 (win64 - Windows 11+.0 (26200.2))
+
+CPU model: AMD Ryzen 9 7900X 12-Core Processor, instruction set [SSE2|AVX|AVX2|AVX512]
+Thread count: 12 physical cores, 24 logical processors, using up to 20 threads
+
+Non-default parameters:
+TimeLimit  1000
+SoftMemLimit  40
+BestObjStop  2724.001
+NodefileStart  40
+Threads  20
+
+Optimize a model with 28 rows, 196 columns and 392 nonzeros
+Model fingerprint: 0x3f91731e
+Model has 16562 quadratic objective terms
+Variable types: 0 continuous, 196 integer (196 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [0e+00, 0e+00]
+  QObjective range [4e+00, 3e+02]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Found heuristic solution: objective 3214.0000000
+Presolve time: 0.10s
+Presolved: 28 rows, 196 columns, 392 nonzeros
+Presolved model has 16758 quadratic objective terms
+Variable types: 0 continuous, 196 integer (196 binary)
+
+Root relaxation: objective -1.731557e+04, 221 iterations, 0.02 seconds (0.02 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+H    0     0                    3044.0000000    0.00000   100%     -    0s
+     0     0    0.00000    0  186 3044.00000    0.00000   100%     -    0s
+H    0     0                    3004.0000000    0.00000   100%     -    0s
+     0     0    0.00000    0  186 3004.00000    0.00000   100%     -    0s
+H    0     0                    2980.0000000    0.00000   100%     -    0s
+H    0     0                    2964.0000000    0.00000   100%     -    0s
+H    0     0                    2956.0000000    0.00000   100%     -    0s
+     0     2    0.00000    0  186 2956.00000    0.00000   100%     -    0s
+H   31    52                    2936.0000000    0.00000   100%  13.6    0s
+H   34    52                    2922.0000000    0.00000   100%  12.6    0s
+H   39    52                    2920.0000000    0.00000   100%  11.3    0s
+H  153   172                    2910.0000000    0.00000   100%   5.3    1s
+H  154   172                    2896.0000000    0.00000   100%   5.3    1s
+H  158   172                    2852.0000000    0.00000   100%   5.2    1s
+H  271   272                    2844.0000000    0.00000   100%   4.2    1s
+H  271   259                    2812.0000000    0.00000   100%   4.2    1s
+H  441   396                    2798.0000000    0.00000   100%  17.1    1s
+H  601   525                    2794.0000000    0.00000   100%  17.1    1s
+H  606   512                    2760.0000000    0.00000   100%  17.1    1s
+H  777   640                    2756.0000000    0.00000   100%  17.9    1s
+H  857   602                    2752.0000000    0.00000   100%  17.8    1s
+H 1036   854                    2748.0000000    0.00000   100%  17.1    1s
+H 1157   873                    2730.0000000    0.00000   100%  16.7    1s
+H 3217  2334                    2724.0000000  254.75545  90.6%  18.5    3s
+
+Cutting planes:
+  Implied bound: 45
+  MIR: 9
+  StrongCG: 1
+  Flow cover: 68
+  RLT: 9
+
+Explored 3231 nodes (60168 simplex iterations) in 3.61 seconds (2.57 work units)
+Thread count was 20 (of 24 available processors)
+
+Solution count 10: 2724 2730 2748 ... 2844
+
+Optimization achieved user objective limit
+Best objective 2.724000000000e+03, best bound 2.560000000000e+02, gap 90.6021%

@@ -1,0 +1,68 @@
+
+Gurobi 12.0.2 (win64) logging started Sun Jan 25 06:20:19 2026
+
+Set parameter LogFile to value "lipa40b.dat_1000_log_bestSolStop.txt"
+Set parameter Threads to value 20
+Set parameter SoftMemLimit to value 40
+Set parameter NodefileStart to value 40
+Set parameter BestObjStop to value 476581.001
+Gurobi Optimizer version 12.0.2 build v12.0.2rc0 (win64 - Windows 11+.0 (26200.2))
+
+CPU model: AMD Ryzen 9 7900X 12-Core Processor, instruction set [SSE2|AVX|AVX2|AVX512]
+Thread count: 12 physical cores, 24 logical processors, using up to 20 threads
+
+Non-default parameters:
+TimeLimit  1000
+SoftMemLimit  40
+BestObjStop  476581.001
+NodefileStart  40
+Threads  20
+
+Optimize a model with 80 rows, 1600 columns and 3200 nonzeros
+Model fingerprint: 0x6799ff81
+Model has 1184040 quadratic objective terms
+Variable types: 0 continuous, 1600 integer (1600 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [0e+00, 0e+00]
+  QObjective range [6e+00, 6e+03]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Found heuristic solution: objective 622751.00000
+Presolve removed 0 rows and 0 columns (presolve time = 6s)...
+Presolve time: 6.16s
+Presolved: 80 rows, 1600 columns, 3200 nonzeros
+Presolved model has 1185640 quadratic objective terms
+Variable types: 0 continuous, 1600 integer (1600 binary)
+
+Root simplex log...
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   0.000000e+00   3.885504e+05      6s
+    1482   -4.2272347e+06   0.000000e+00   2.606301e+03     10s
+    1680   -4.2434484e+06   0.000000e+00   0.000000e+00     12s
+
+Root relaxation: objective -4.243448e+06, 1680 iterations, 5.39 seconds (9.41 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+H    0     0                    609560.00000    0.00000   100%     -   11s
+H    0     0                    606880.00000    0.00000   100%     -   11s
+H    0     0                    604644.00000    0.00000   100%     -   11s
+H    0     0                    602661.00000    0.00000   100%     -   11s
+H    0     0                    598882.00000    0.00000   100%     -   11s
+H    0     0                    598494.00000    0.00000   100%     -   11s
+     0     0    0.00000    0 1600 598494.000    0.00000   100%     -   11s
+H    0     0                    597042.00000    0.00000   100%     -   11s
+H    0     0                    596743.00000    0.00000   100%     -   11s
+H    0     0                    596189.00000    0.00000   100%     -   11s
+H    0     0                    476581.00000    0.00000   100%     -   12s
+
+Explored 1 nodes (1680 simplex iterations) in 12.39 seconds (21.78 work units)
+Thread count was 20 (of 24 available processors)
+
+Solution count 10: 476581 596189 596743 ... 609560
+
+Optimization achieved user objective limit
+Best objective 4.765810000000e+05, best bound 1.862645149231e-09, gap 100.0000%

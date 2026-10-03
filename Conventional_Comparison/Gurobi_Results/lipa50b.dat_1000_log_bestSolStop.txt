@@ -1,0 +1,80 @@
+
+Gurobi 12.0.2 (win64) logging started Sun Jan 25 06:37:20 2026
+
+Set parameter LogFile to value "lipa50b.dat_1000_log_bestSolStop.txt"
+Set parameter Threads to value 20
+Set parameter SoftMemLimit to value 40
+Set parameter NodefileStart to value 40
+Set parameter BestObjStop to value 1210244.001
+Gurobi Optimizer version 12.0.2 build v12.0.2rc0 (win64 - Windows 11+.0 (26200.2))
+
+CPU model: AMD Ryzen 9 7900X 12-Core Processor, instruction set [SSE2|AVX|AVX2|AVX512]
+Thread count: 12 physical cores, 24 logical processors, using up to 20 threads
+
+Non-default parameters:
+TimeLimit  1000
+SoftMemLimit  40
+BestObjStop  1210244.001
+NodefileStart  40
+Threads  20
+
+Optimize a model with 100 rows, 2500 columns and 5000 nonzeros
+Model fingerprint: 0x0da55f5b
+Model has 2940000 quadratic objective terms
+Variable types: 0 continuous, 2500 integer (2500 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [0e+00, 0e+00]
+  QObjective range [4e+00, 1e+04]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Found heuristic solution: objective 1567889.0000
+Presolve removed 0 rows and 0 columns (presolve time = 14s)...
+Presolve time: 14.19s
+Presolved: 100 rows, 2500 columns, 5000 nonzeros
+Presolved model has 2942500 quadratic objective terms
+Variable types: 0 continuous, 2500 integer (2500 binary)
+
+Root simplex log...
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   0.000000e+00   6.367793e+05     14s
+     756   -1.0537527e+07   0.000000e+00   6.989823e+04     15s
+    1699   -1.1114141e+07   0.000000e+00   1.365553e+04     20s
+    2089   -1.1189613e+07   0.000000e+00   6.231110e+03     25s
+    2359   -1.1226250e+07   0.000000e+00   2.598408e+03     30s
+    2600   -1.1252100e+07   0.000000e+00   0.000000e+00     37s
+
+Root relaxation: objective -1.125210e+07, 2600 iterations, 22.54 seconds (33.97 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+H    0     0                    1556421.0000    0.00000   100%     -   36s
+H    0     0                    1551102.0000    0.00000   100%     -   36s
+H    0     0                    1542628.0000    0.00000   100%     -   36s
+H    0     0                    1542478.0000    0.00000   100%     -   36s
+H    0     0                    1537481.0000    0.00000   100%     -   36s
+H    0     0                    1537086.0000    0.00000   100%     -   36s
+H    0     0                    1535117.0000    0.00000   100%     -   36s
+H    0     0                    1532768.0000    0.00000   100%     -   36s
+H    0     0                    1528593.0000    0.00000   100%     -   36s
+H    0     0                    1521749.0000    0.00000   100%     -   36s
+     0     0    0.00000    0 2500 1521749.00    0.00000   100%     -   37s
+H    0     0                    1521349.0000    0.00000   100%     -   37s
+H    0     0                    1519017.0000    0.00000   100%     -   37s
+H    0     0                    1516921.0000    0.00000   100%     -   37s
+H    0     0                    1516349.0000    0.00000   100%     -   37s
+H    0     0                    1516206.0000    0.00000   100%     -   37s
+H    0     0                    1504729.0000    0.00000   100%     -   37s
+H    0     0                    1504310.0000    0.00000   100%     -   37s
+H    0     0                    1503763.0000    0.00000   100%     -   37s
+H    0     0                    1210244.0000    0.00000   100%     -   38s
+
+Explored 1 nodes (2600 simplex iterations) in 38.74 seconds (65.00 work units)
+Thread count was 20 (of 24 available processors)
+
+Solution count 10: 1.21024e+06 1.50376e+06 1.50431e+06 ... 1.52175e+06
+
+Optimization achieved user objective limit
+Best objective 1.210244000000e+06, best bound 5.587935447693e-09, gap 100.0000%
